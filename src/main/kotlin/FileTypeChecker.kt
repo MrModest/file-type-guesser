@@ -12,11 +12,8 @@ class FileTypeChecker(private val knownFileTypes: Array<FileType>) {
     }
 
     fun getFileType(file: File): FileType {
-        val raFile = RandomAccessFile(file, "r")
-
-        return knownFileTypes
-            .sortedByDescending(FileType::priority)
-            .firstOrNull { it.matches(raFile) }
+        return getFileTypes(file)
+            .firstOrNull()
             ?: FileType.unknown
     }
 }
